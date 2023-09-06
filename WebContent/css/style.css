@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200;0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;0,6..12,800;1,6..12,200;1,6..12,300;1,6..12,400&display=swap');
+
+html, body {
+	margin-left: 20px;
+	margin-right: 20px;
+	font-family: 'Inter', sans-serif;
+}
+
+#content table {
+	border-collapse: collapse;
+	font-family: 'Nunito Sans', sans-serif;
+	width: 100%;
+}
+
+#content th {
+	border-bottom: 2px solid grey;
+	padding: 10px;
+	font-family: 'Nunito Sans', sans-serif;
+	color: #ffffff;
+	background:#2895ed; 
+	
+}
+#content tr {
+	text-align: center;
+}
+
+#content td {
+	padding:5px;
+}
+
+#content tr:nth-child(even){
+	background: #cccccc;
+}
+
+#content tr:nth-child(odd){
+	background: #ffffff;
+}
+
+#wrapper {
+	width: 100%;
+	text-align: center;
+}
+
+#header {
+	width: 100%;
+	background:#2895ed repeat;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	color: #ffffff;
+}
+
+#container {
+	width: 100%;
+}
+
+#container #content {
+	margin-top: 20px;
+}
+
+.add-student-button {
+	padding: 5px;
+	border-radius: 5px;
+	border: 1px solid #555;
+	margin-bottom: 10px;
+	font-size: 12px;
+	font-weight: bold;
+	width: 150px;
+	cursor: pointer;
+}
+
+
+
+

@@ -1,0 +1,48 @@
+#add-student-table {
+	border-style: none;
+	width: 50%;
+}
+
+#add-student-table tr {
+	border-style: none;
+	text-align: left;
+}
+
+#add-student-table td {
+	border-style: none;
+	text-align: left;
+}
+
+
+#add-student-table tr:nth-child(even) {
+	background: #ffffff;
+}
+
+#add-student-table tr:nth-child(odd) {
+	background: #ffffff;
+}
+
+input {
+	width: 100%;
+	border: 1px solid #666;
+	border-radius: 5px;
+	padding: 5px;
+	font-size: 20px;
+	margin-bottom: 5px;
+}
+
+label {
+	font-size: 15px;
+	margin-right: 20px;
+}
+
+.save {
+	padding: 5px 10px;
+	width: 140px;
+	font-size: 20px;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+
+
