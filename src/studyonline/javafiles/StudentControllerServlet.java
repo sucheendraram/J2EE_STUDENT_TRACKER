@@ -18,17 +18,51 @@ public class StudentControllerServlet extends HttpServlet {
 		try {
 			
 			action = request.getParameter("action");
+			System.out.println(action);
 			if(action == null) {
 				action = "LIST";
 			}
-			System.out.println("ACtion "+action);
 			if(action.equals("LIST")) {
 				listAllStudents(request, response);
 			} else if(action.equals("ADD")) {
 				addStudent(request,response);
+			} else if(action.equals("LOAD")) {
+				loadStudent(request,response);
+			} else if(action.equals("UPDATE")) {
+				updateStudent(request,response);
 			}
 			
 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void updateStudent(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			int id = Integer.parseInt(request.getParameter("studentId"));
+			int age = Integer.parseInt(request.getParameter("age"));
+			String firstName = request.getParameter("firstName");
+			String lastName = request.getParameter("lastName");
+			String email = request.getParameter("email");
+			String department = request.getParameter("department");
+			String grade = request.getParameter("grade");
+			String regNo = request.getParameter("regNo");
+			Student s1 = new Student(id, firstName, lastName, age, email, department, grade, regNo);
+			StudentDBUtil.updateStudent(s1);
+			listAllStudents(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void loadStudent(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		try {
+			//get the id parameter from the url
+			int id = Integer.parseInt(request.getParameter("studentId"));
+			Student s1 = StudentDBUtil.getStudentDetailsUsingId(id);
+			request.setAttribute("SINGLE_STUDENT_DATA", s1);
+			request.getRequestDispatcher("/update-student.jsp").forward(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -56,7 +90,6 @@ public class StudentControllerServlet extends HttpServlet {
 	private void listAllStudents(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			List<Student> allStudents = StudentDBUtil.getAllStudents();
-			System.out.println("ALL STUDENTS" + allStudents);
 			request.setAttribute("STUDENTS_LIST", allStudents);
 			request.getRequestDispatcher("/list-students.jsp").forward(request, response);
 		} catch (Exception e) {

@@ -54,9 +54,8 @@ public class StudentDBUtil {
 		return students;
 	}
 
-	
 	public static void addStudent(Student student) throws Exception {
-		//Create a conn
+		// Create a conn
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -70,15 +69,76 @@ public class StudentDBUtil {
 			pstmt.setString(5, student.getDepartment());
 			pstmt.setString(6, student.getGrade());
 			pstmt.setString(7, student.getReg_no());
-			
+
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//Create a prepared statement
-		
-		//Executing the Query
-		
-		//Check the status
+	}
+
+	public static Student getStudentDetailsUsingId(int studentId) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet res = null;
+		Student student = null;
+		try {
+			conn = DatabaseConnect.createConnection();
+			String query = "select * from student_tracker where id=?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, studentId);
+			res = pstmt.executeQuery();
+			while (res.next()) {
+				int id = res.getInt("id");
+				int age = res.getInt("age");
+				String firstName = res.getString("first_name");
+				String lastName = res.getString("last_name");
+				String email = res.getString("email");
+				String department = res.getString("department");
+				String grade = res.getString("grade");
+				String regNo = res.getString("reg_no");
+				student = new Student(id, firstName, lastName, age, email, department, grade, regNo);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+			if (pstmt != null) {
+				pstmt.close();
+			}
+			if (res != null) {
+				res.close();
+			}
+		}
+		return student;
+	}
+
+	public static void updateStudent(Student student) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = DatabaseConnect.createConnection();
+			String query = "update student_tracker set first_name=?,last_name=?, age=?, email=?, department=?,grade=?,reg_no=? where id=?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, student.getFirstName());
+			pstmt.setString(2, student.getLastName());
+			pstmt.setInt(3, student.getAge());
+			pstmt.setString(4, student.getEmail());
+			pstmt.setString(5, student.getDepartment());
+			pstmt.setString(6, student.getGrade());
+			pstmt.setString(7, student.getReg_no());
+			pstmt.setInt(8, student.getId());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+			if (pstmt != null) {
+				pstmt.close();
+			}
+		}
 	}
 }

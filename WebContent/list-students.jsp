@@ -20,8 +20,9 @@
 
 	<div id="container">
 		<div id="content">
-		
-			<input onclick="window.location.href='add-student.jsp'" class="add-student-button" type="button" value="Add Student" />
+
+			<input onclick="window.location.href='add-student.jsp'"
+				class="add-student-button" type="button" value="Add Student" />
 			<table border="1">
 				<thead>
 					<tr>
@@ -32,12 +33,18 @@
 						<th>Registration Number</th>
 						<th>Email</th>
 						<th>Grade</th>
+						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
 					<!-- display all the students here -->
 
 					<c:forEach var="student" items="${STUDENTS_LIST}">
+						<c:url var="updateLink" value="StudentControllerServlet">
+							<c:param name="action" value="LOAD" />
+							<c:param name="studentId" value="${student.id }" />
+						</c:url>
+
 						<tr>
 							<td>${student.firstName }</td>
 							<td>${student.lastName }</td>
@@ -46,6 +53,7 @@
 							<td>${student.reg_no }</td>
 							<td>${student.email }</td>
 							<td>${student.grade }</td>
+							<td><a href="${updateLink }">Update</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>
