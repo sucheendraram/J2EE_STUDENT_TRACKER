@@ -13,26 +13,38 @@ import javax.servlet.http.HttpServletResponse;
 public class StudentControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String action = "LIST";
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			
+
 			action = request.getParameter("action");
 			System.out.println(action);
-			if(action == null) {
+			if (action == null) {
 				action = "LIST";
 			}
-			if(action.equals("LIST")) {
+			if (action.equals("LIST")) {
 				listAllStudents(request, response);
-			} else if(action.equals("ADD")) {
-				addStudent(request,response);
-			} else if(action.equals("LOAD")) {
-				loadStudent(request,response);
-			} else if(action.equals("UPDATE")) {
-				updateStudent(request,response);
+			} else if (action.equals("ADD")) {
+				addStudent(request, response);
+			} else if (action.equals("LOAD")) {
+				loadStudent(request, response);
+			} else if (action.equals("UPDATE")) {
+				updateStudent(request, response);
+			} else if (action.equals("DELETE")) {
+				deleteStudent(request, response);
 			}
-			
 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void deleteStudent(HttpServletRequest request, HttpServletResponse response) {
+		try {
+			int id = Integer.parseInt(request.getParameter("studentId"));
+			StudentDBUtil.deleteStudent(id);
+			listAllStudents(request, response);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -58,7 +70,7 @@ public class StudentControllerServlet extends HttpServlet {
 
 	private void loadStudent(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		try {
-			//get the id parameter from the url
+			// get the id parameter from the url
 			int id = Integer.parseInt(request.getParameter("studentId"));
 			Student s1 = StudentDBUtil.getStudentDetailsUsingId(id);
 			request.setAttribute("SINGLE_STUDENT_DATA", s1);
@@ -70,7 +82,7 @@ public class StudentControllerServlet extends HttpServlet {
 
 	private void addStudent(HttpServletRequest request, HttpServletResponse response) {
 		try {
-			//All the logic for adding the students to be added here
+			// All the logic for adding the students to be added here
 			String firstName = request.getParameter("firstName");
 			String lastName = request.getParameter("lastName");
 			String department = request.getParameter("department");
@@ -78,7 +90,7 @@ public class StudentControllerServlet extends HttpServlet {
 			String grade = request.getParameter("grade");
 			String email = request.getParameter("email");
 			int age = Integer.parseInt(request.getParameter("age"));
-			
+
 			Student s1 = new Student(firstName, lastName, age, email, department, grade, regNo);
 			StudentDBUtil.addStudent(s1);
 			listAllStudents(request, response);

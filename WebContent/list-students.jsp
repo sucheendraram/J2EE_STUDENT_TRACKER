@@ -44,7 +44,10 @@
 							<c:param name="action" value="LOAD" />
 							<c:param name="studentId" value="${student.id }" />
 						</c:url>
-
+						<c:url var="deleteLink" value="StudentControllerServlet">
+							<c:param name="action" value="DELETE" />
+							<c:param name="studentId" value="${student.id }" />
+						</c:url>
 						<tr>
 							<td>${student.firstName }</td>
 							<td>${student.lastName }</td>
@@ -53,7 +56,9 @@
 							<td>${student.reg_no }</td>
 							<td>${student.email }</td>
 							<td>${student.grade }</td>
-							<td><a href="${updateLink }">Update</a></td>
+							<td><a href="${updateLink }">Update</a>
+								| <a href="${deleteLink }">Delete</a>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>

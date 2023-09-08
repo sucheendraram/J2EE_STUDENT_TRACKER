@@ -69,10 +69,16 @@ public class StudentDBUtil {
 			pstmt.setString(5, student.getDepartment());
 			pstmt.setString(6, student.getGrade());
 			pstmt.setString(7, student.getReg_no());
-
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+			if (pstmt != null) {
+				pstmt.close();
+			}
 		}
 	}
 
@@ -130,6 +136,27 @@ public class StudentDBUtil {
 			pstmt.setString(7, student.getReg_no());
 			pstmt.setInt(8, student.getId());
 			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (conn != null) {
+				conn.close();
+			}
+			if (pstmt != null) {
+				pstmt.close();
+			}
+		}
+	}
+
+	public static void deleteStudent(int id) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = DatabaseConnect.createConnection();
+			String query = "delete from student_tracker where id=?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, id);
+			pstmt.execute();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
