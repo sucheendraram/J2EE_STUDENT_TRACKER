@@ -58,5 +58,6 @@
 			</table>
 		</form>
 	</div>
+	<a href="StudentControllerServlet" >Go Back</a>
 </body>
 </html>

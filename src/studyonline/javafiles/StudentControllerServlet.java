@@ -17,24 +17,36 @@ public class StudentControllerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-
 			action = request.getParameter("action");
 			System.out.println(action);
 			if (action == null) {
 				action = "LIST";
 			}
-			if (action.equals("LIST")) {
-				listAllStudents(request, response);
-			} else if (action.equals("ADD")) {
-				addStudent(request, response);
-			} else if (action.equals("LOAD")) {
-				loadStudent(request, response);
-			} else if (action.equals("UPDATE")) {
-				updateStudent(request, response);
-			} else if (action.equals("DELETE")) {
-				deleteStudent(request, response);
-			}
 
+			switch (action) {
+			case "LIST": {
+				listAllStudents(request, response);
+				break;
+			}
+			case "ADD": {
+				addStudent(request, response);
+				break;
+			}
+			case "LOAD": {
+				loadStudent(request, response);
+				break;
+			}
+			case "UPDATE": {
+				updateStudent(request, response);
+				break;
+			}
+			case "DELETE": {
+				deleteStudent(request, response);
+				break;
+			}
+			default:
+				listAllStudents(request, response);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
